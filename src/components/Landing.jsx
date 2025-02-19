@@ -8,7 +8,7 @@ const Landing = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-950">
+    <div className="min-h-screen relative bg-cover bg-center" style={{ backgroundImage: 'url(src/assets/Classroom.png)' }}>
       {/* Navigation */}
       <nav className="relative z-10 flex justify-between items-center p-6">
         <div className="text-white text-2xl font-bold">Echoes of Trauma</div>
