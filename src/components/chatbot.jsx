@@ -173,7 +173,7 @@ export default function Chat() {
   )
 }
 
-function SendIcon(props: any) {
+function SendIcon(props) {
   return (
     <svg
       {...props}
