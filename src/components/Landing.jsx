@@ -19,7 +19,7 @@ const Landing = () => {
           <a href="#company" className="text-white/80 hover:text-white">{t('nav.company')}</a>
           <LanguageSwitcher />
           <button className="bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full border border-white/20 hover:bg-white/20">
-            {t('nav.getStarted')}
+            {t('nav.downloadSimulator')}
           </button>
         </div>
       </nav>
