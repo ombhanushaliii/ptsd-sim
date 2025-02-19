@@ -1,0 +1,17 @@
+{
+    "nav": {
+      "research": "Research",
+      "product": "Product",
+      "studios": "Studios",
+      "company": "Company",
+      "getStarted": "Get Started"
+    },
+    "main": {
+      "newReleases": "NEW RELEASES",
+      "frames": "Frames",
+      "gen3Alpha": "Gen-3 Alpha",
+      "actOne": "Act-One",
+      "description": "A new frontier for fast, high-fidelity, controllable video generation.",
+      "tryNow": "Try Runway Now"
+    }
+  }

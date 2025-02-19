@@ -1,20 +1,25 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import Chatbot from './Chatbot';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const Landing = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-950">
       {/* Navigation */}
       <nav className="relative z-10 flex justify-between items-center p-6">
         <div className="text-white text-2xl font-bold">PTSD - sim</div>
-        <div className="flex gap-8">
-          <a href="#research" className="text-white/80 hover:text-white">Research</a>
-          <a href="#product" className="text-white/80 hover:text-white">Product</a>
-          <a href="#studios" className="text-white/80 hover:text-white">Studios</a>
-          <a href="#company" className="text-white/80 hover:text-white">Company</a>
+        <div className="flex items-center gap-8">
+          <a href="#research" className="text-white/80 hover:text-white">{t('nav.research')}</a>
+          <a href="#product" className="text-white/80 hover:text-white">{t('nav.product')}</a>
+          <a href="#studios" className="text-white/80 hover:text-white">{t('nav.studios')}</a>
+          <a href="#company" className="text-white/80 hover:text-white">{t('nav.company')}</a>
+          <LanguageSwitcher />
           <button className="bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full border border-white/20 hover:bg-white/20">
-            Get Started
+            {t('nav.getStarted')}
           </button>
         </div>
       </nav>
@@ -22,19 +27,19 @@ const Landing = () => {
       {/* Main Content */}
       <main className="relative z-10 flex flex-col items-start justify-center h-[calc(100vh-80px)] px-16">
         <div className="text-white space-y-6 max-w-2xl">
-          <div className="text-sm font-medium tracking-wider opacity-80">NEW RELEASES</div>
+          <div className="text-sm font-medium tracking-wider opacity-80">{t('main.newReleases')}</div>
           <h1 className="text-6xl font-serif">
-            Frames
+            {t('main.frames')}
             <br />
-            <span className="text-5xl text-white/80">Gen-3 Alpha</span>
+            <span className="text-5xl text-white/80">{t('main.gen3Alpha')}</span>
             <br />
-            <span className="text-4xl text-white/60">Act-One</span>
+            <span className="text-4xl text-white/60">{t('main.actOne')}</span>
           </h1>
           <p className="text-xl text-white/80 mt-4">
-            A new frontier for fast, high-fidelity, controllable video generation.
+            {t('main.description')}
           </p>
           <button className="group flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-full border border-white/20 hover:bg-white/20 mt-8">
-            Try Runway Now
+            {t('main.tryNow')}
             <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
           </button>
         </div>
