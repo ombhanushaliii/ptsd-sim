@@ -26,6 +26,8 @@ const Chatbot = () => {
       setChatHistory(appendChatHistory);
   
       const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+
+      const meraPrompt = '';
       
       // Get the response
       const result = await model.generateContent("\n\nUser: " + inputValue);
@@ -114,12 +116,7 @@ const Chatbot = () => {
                 <SendIcon />
               </button>
             </div>
-            <button
-              className="mt-2 w-full border rounded-lg px-4 py-2 flex items-center justify-center gap-2 hover:bg-gray-50"
-            >
-              <MicIcon />
-              Voice Input
-            </button>
+            
           </div>
         </div>
       )}

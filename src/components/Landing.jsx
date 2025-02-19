@@ -11,7 +11,7 @@ const Landing = () => {
     <div className="min-h-screen relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-950">
       {/* Navigation */}
       <nav className="relative z-10 flex justify-between items-center p-6">
-        <div className="text-white text-2xl font-bold">PTSD - sim</div>
+        <div className="text-white text-2xl font-bold">Echoes of Trauma</div>
         <div className="flex items-center gap-8">
           <a href="#research" className="text-white/80 hover:text-white">{t('nav.research')}</a>
           <a href="#product" className="text-white/80 hover:text-white">{t('nav.product')}</a>
