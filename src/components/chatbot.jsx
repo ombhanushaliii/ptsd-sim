@@ -69,12 +69,12 @@ const meraPrompt = `Teacher teaching something in class, prolly chemistry and sh
           <ChatIcon />
         </button>
       ) : (
-        <div className="fixed top-16 right-0 w-1/2 h-[calc(100vh-4rem)] bg-white shadow-xl flex flex-col rounded-l-2xl transition-all duration-300">
-          <div className="flex items-center justify-between p-4 border-b">
+        <div className="fixed top-16 right-0 w-1/2 h-[calc(100vh-4rem)] bg-gray-900 text-white shadow-xl flex flex-col rounded-l-2xl transition-all duration-300">
+          <div className="flex items-center justify-between p-4 border-b border-gray-700">
             <h2 className="text-xl font-semibold">PTSD mentor</h2>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-500 hover:text-gray-300"
             >
               <CloseIcon />
             </button>
@@ -86,27 +86,27 @@ const meraPrompt = `Teacher teaching something in class, prolly chemistry and sh
                 key={index}
                 className={`max-w-[80%] ${
                   chat.userID === 'chatBot' 
-                    ? 'ml-auto bg-blue-100 rounded-l-lg rounded-tr-lg' 
-                    : 'bg-gray-100 rounded-r-lg rounded-tl-lg'
+                    ? 'ml-auto bg-blue-700 rounded-l-lg rounded-tr-lg' 
+                    : 'bg-gray-800 rounded-r-lg rounded-tl-lg'
                 } p-3`}
               >
                 <p>{chat.textContent}</p>
               </div>
             ))}
             {loading && (
-              <div className="ml-auto max-w-[80%] bg-blue-100 rounded-l-lg rounded-tr-lg p-3">
+              <div className="ml-auto max-w-[80%] bg-blue-700 rounded-l-lg rounded-tr-lg p-3">
                 <p>Thinking...</p>
               </div>
             )}
           </div>
           
-          <div className="p-4 border-t">
+          <div className="p-4 border-t border-gray-700">
             <div className="flex gap-2">
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                className="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
                 placeholder="Type your message..."
               />
               <button
