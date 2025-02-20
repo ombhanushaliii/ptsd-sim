@@ -61,7 +61,7 @@ const meraPrompt = `Teacher teaching something in class, prolly chemistry and sh
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      {!isOpen ? (
+      {false ? (
         <button
           onClick={() => setIsOpen(true)}
           className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-4 shadow-lg transition-all duration-300"
@@ -69,14 +69,14 @@ const meraPrompt = `Teacher teaching something in class, prolly chemistry and sh
           <ChatIcon />
         </button>
       ) : (
-        <div className="fixed top-16 right-0 w-1/2 h-[calc(100vh-4rem)] bg-gray-900 text-white shadow-xl flex flex-col rounded-l-2xl transition-all duration-300">
+        <div className="fixed bottom-4 right-2 w-1/2 h-[calc(100vh-10rem)] bg-gray-900 opacity-80 text-white shadow-xl flex flex-col rounded-l-2xl transition-all duration-300">
           <div className="flex items-center justify-between p-4 border-b border-gray-700">
             <h2 className="text-xl font-semibold">PTSD mentor</h2>
             <button
               onClick={() => setIsOpen(false)}
               className="text-gray-500 hover:text-gray-300"
             >
-              <CloseIcon />
+              {/* <CloseIcon /> */}
             </button>
           </div>
           

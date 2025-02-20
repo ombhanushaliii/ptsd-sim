@@ -4,6 +4,7 @@ import Chatbot from './Chatbot';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 
+
 const DecryptText = ({ text, delay = 0 }) => {
   const [displayText, setDisplayText] = useState('');
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
@@ -70,8 +71,9 @@ const Landing = () => {
   };
 
   return (
-    <div className="relative bg-gray-900">
+    <div className="relative bg-[url(src/assets/Classroom.png)] bg-fixed bg-cover bg-no-repeat ">
       {/* Hero Section with Parallax */}
+      <div className = "bg-gradient-to-r from-black/80 to-transparent h-screen w-full">
       <div className="min-h-screen sticky top-0">
         <div 
           className="fixed inset-0 z-10 pointer-events-none bg-gradient-to-b from-black/50 via-transparent to-transparent"
@@ -168,6 +170,7 @@ const Landing = () => {
 
       <div className="fixed bottom-0 right-0 z-40">
         <Chatbot />
+      </div>
       </div>
     </div>
   );
