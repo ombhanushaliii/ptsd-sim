@@ -189,3 +189,4 @@ export default Landing;
 
 
 {/* skibidi */}
+{/* skibidi2 */}
