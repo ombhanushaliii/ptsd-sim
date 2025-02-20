@@ -71,7 +71,7 @@ const Landing = () => {
   };
 
   return (
-    <div className="relative bg-[url(src/assets/Classroom.png)] bg-fixed bg-cover bg-no-repeat ">
+    <div className="relative bg-[url(./assets/Classroom.png)] bg-fixed bg-cover bg-no-repeat ">
       {/* Hero Section with Parallax */}
       <div className = "bg-gradient-to-r from-black/80 to-transparent h-screen w-full">
       <div className="min-h-screen sticky top-0">
