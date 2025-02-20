@@ -69,7 +69,7 @@ const meraPrompt = `Teacher teaching something in class, prolly chemistry and sh
           <ChatIcon />
         </button>
       ) : (
-        <div className="fixed bottom-4 right-2 w-1/2 h-[calc(100vh-10rem)] bg-gray-900 opacity-80 text-white shadow-xl flex flex-col rounded-l-2xl transition-all duration-300">
+        <div className="fixed bottom-4 right-2 w-1/2 h-[calc(100vh-10rem)] bg-gray-900 opacity-80 text-white shadow-xl flex flex-col rounded-2xl transition-all duration-300">
           <div className="flex items-center justify-between p-4 border-b border-gray-700">
             <h2 className="text-xl font-semibold">PTSD mentor</h2>
             <button
