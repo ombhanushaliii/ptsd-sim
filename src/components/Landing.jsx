@@ -91,10 +91,10 @@ const Landing = () => {
               Breaking Point
             </button>
             <div className="flex items-center gap-8">
-              <a href="#research" className="text-white/80 hover:text-white">{t('nav.research')}</a>
-              <a href="#product" className="text-white/80 hover:text-white">{t('nav.product')}</a>
-              <a href="#studios" className="text-white/80 hover:text-white">{t('nav.studios')}</a>
-              <a href="#company" className="text-white/80 hover:text-white">{t('nav.company')}</a>
+              <a href="#research" className="text-white/80 hover:text-white"></a>
+              <a href="#product" className="text-white/80 hover:text-white"></a>
+              <a href="#studios" className="text-white/80 hover:text-white"></a>
+              <span className="text-white/80 hover:text-white">{t('nav.company')}</span>
               <LanguageSwitcher />
               <button 
                 onClick={scrollToDownload}
@@ -118,7 +118,7 @@ const Landing = () => {
                 <DecryptText text="Breaking Point" />
                 <br />
                 <span className="text-5xl text-white/80">
-                  <DecryptText text="ver 1" delay={250} />
+                  <DecryptText text="ver 1.0" delay={250} />
                 </span>
               </h1>
               <p className="text-xl text-white/80 mt-4">{t('main.description')}</p>
@@ -142,7 +142,7 @@ const Landing = () => {
             Understand Their Struggle
             </h2>
             <p className="text-xl text-white/80">
-            An immersive experience designed to help you see the world through the eyes of middle school children coping with PTSD.
+            An immersive experience designed to help you see the world through the eyes of people  coping with PTSD.
             </p>
             <div className="flex gap-4 justify-center mt-8">
               <a 

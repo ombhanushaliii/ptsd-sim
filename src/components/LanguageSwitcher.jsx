@@ -13,6 +13,7 @@ const LanguageSwitcher = () => {
   value={i18n.language}
   onChange={(e) => i18n.changeLanguage(e.target.value)}
   className="
+  mr-10
     px-3 py-1 
     rounded-full 
     text-sm 

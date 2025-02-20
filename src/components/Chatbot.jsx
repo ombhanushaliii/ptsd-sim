@@ -8,7 +8,7 @@ const Chatbot = () => {
   const [loading, setLoading] = useState(false);
   const genAI = new GoogleGenerativeAI(`${import.meta.env.VITE_GOOGLE_API_KEY}`);
   useEffect(() => {
-    setChatHistory([{ userID: 'chatBot', textContent: 'Hello! I\'m your PTSD Mentor. 💙\n I\'m here to help you understand PTSD, manage triggers, and find support. You\'re not alone - Small steps matter. \n How can I help you today? ' }]);
+    setChatHistory([{ userID: 'chatBot', textContent: 'Hello! I\'m your PTSD Mentor. 💙\n\n\n I\'m here to help you understand PTSD, manage triggers, and find support. You\'re not alone - Small steps matter. \n How can I help you today? ' }]);
   }, []);
   const getResponseForGivenPrompt = async () => {
     let appendChatHistory = [];
