@@ -132,7 +132,7 @@ const Landing = () => {
       </div>
 
       {/* Download Section */}
-      <div className="min-h-screen relative z-30 bg-gray-900/95 backdrop-blur-sm">
+      <div className="min-h-screen relative z-50 bg-gray-900 backdrop-blur-sm">
         <div className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
           <div className="text-center space-y-8 max-w-3xl">
             <h2 className="text-5xl font-serif text-white">
