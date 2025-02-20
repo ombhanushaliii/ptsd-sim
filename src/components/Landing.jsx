@@ -145,10 +145,15 @@ const Landing = () => {
             An immersive experience designed to help you see the world through the eyes of middle school children coping with PTSD.
             </p>
             <div className="flex gap-4 justify-center mt-8">
-              <button className="group flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors">
+              <a 
+                href="https://drive.google.com/drive/folders/14yW_fYWM_hUs2sUffVfObHVECx6x5yDv"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors"
+              >
                 <Download size={20} />
                 Download now
-              </button>
+              </a>
               <a 
                 href="https://github.com/luciferx77/notFair" 
                 target="_blank" 
@@ -156,7 +161,7 @@ const Landing = () => {
                 className="group flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-full border border-white/20 hover:bg-white/20"
               >
                 <Github size={20} />
-                Clone source
+                Repository
               </a>
             </div>
             
