@@ -51,7 +51,7 @@ const DecryptText = ({ text, delay = 0 }) => {
 const Landing = () => {
   const { t } = useTranslation();
   const [scrollY, setScrollY] = useState(0);
-
+  
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -134,27 +134,33 @@ const Landing = () => {
         <div className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
           <div className="text-center space-y-8 max-w-3xl">
             <h2 className="text-5xl font-serif text-white">
-              The editor for what's next
+            Understand Their Struggle
             </h2>
             <p className="text-xl text-white/80">
-              A next-generation code editor designed for high-performance collaboration with humans and AI.
+            An immersive experience designed to help you see the world through the eyes of middle school children coping with PTSD.
             </p>
             <div className="flex gap-4 justify-center mt-8">
               <button className="group flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors">
                 <Download size={20} />
                 Download now
               </button>
-              <button className="group flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-full border border-white/20 hover:bg-white/20">
+              <a 
+                href="https://github.com/luciferx77/notFair" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="group flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-full border border-white/20 hover:bg-white/20"
+              >
                 <Github size={20} />
                 Clone source
-              </button>
+              </a>
             </div>
+            
             <div className="flex items-center justify-center gap-4 mt-8 text-white/60">
-              <span>Available for macOS</span>
-              <span>•</span>
-              <span>Linux</span>
-              <span>•</span>
-              <span>Coming soon for Windows</span>
+              <div className="flex items-center gap-2">
+                <span>Made with</span>
+                <span role="img" aria-label="love" className="text-red-500 animate-pulse">❤️</span>
+                <span>by bootWinXP</span>
+              </div>
             </div>
           </div>
         </div>
