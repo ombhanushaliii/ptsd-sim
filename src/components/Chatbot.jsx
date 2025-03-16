@@ -2,68 +2,121 @@ import { useState, useEffect } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [inputValue, setInputValue] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [loading, setLoading] = useState(false);
-  const genAI = new GoogleGenerativeAI(`${import.meta.env.VITE_GOOGLE_API_KEY}`);
+  
+  // Initialize API client with proper error handling
+  let genAI;
+  try {
+    genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_API_KEY);
+  } catch (error) {
+    console.error('Error initializing Google AI:', error);
+  }
+
   useEffect(() => {
     setChatHistory([{ userID: 'chatBot', textContent: 'Hello! I\'m your PTSD Mentor. 💙\n\n\n I\'m here to help you understand PTSD, manage triggers, and find support. You\'re not alone - Small steps matter. \n How can I help you today? ' }]);
   }, []);
+
   const getResponseForGivenPrompt = async () => {
-    let appendChatHistory = [];
+    if (inputValue.trim() === '') return;
+    
+    const userMessage = inputValue;
+    const updatedHistory = [
+      ...chatHistory,
+      { userID: 'user', textContent: userMessage }
+    ];
+    
+    setChatHistory(updatedHistory);
+    setInputValue('');
+    setLoading(true);
     
     try {
-      setLoading(true);
-      if (inputValue.trim() === '') {
-        setLoading(false);
-        return;
+      // Check if API client is initialized
+      if (!genAI) {
+        genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_API_KEY);
+        if (!genAI) throw new Error('Failed to initialize Google AI');
       }
-  
-      appendChatHistory = [
-        ...chatHistory,
-        { userID: 'user', textContent: inputValue }
+      
+      // Most current model names (as of 2025)
+      const modelOptions = [
+        'gemini-1.5-pro',  // Try newer models first
+        'gemini-1.0-pro', 
+        'gemini-pro'       // Fallback to original name
       ];
-  
-      setChatHistory(appendChatHistory);
-  
-      const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-
-const meraPrompt = `Teacher teaching something in class, prolly chemistry and she is handling a chemistry beaker, then the beakers breaks and the glass breaks, he gets reminded of trauma, He gets teleported to home, where he runs to see what happened where father abusing mother after which mother tells you to run just after that run run run sound effect in distorted voice, then the teacher follows you to console you But you feel like its a monster(father) running behind you, this is my project for an XR hackathon aimed to simulate PTSD, to spread awareness, you are a chat bot available on the website where the above project is deployed, your sole purpose is to help people gain knowledge, awareness, and gain empathy towards people suffering from PTSD, You are a multilingual chat bot, therefore are supposed to detect which language the user prompts to you initially and reply with the same for the conversation, you are supposed to give certain and politically right answers always, Do Not Specify which language are you replying in the conversation, you are supposed to detect the language and reply in the same language, and do NOT reply in multiple languages, after every prompt write a generic ending signature asking the user whether they have any more doubts, you are not supposed to repeat your true intention to every one, just reply with something like "I am here to help you learn more about Post Traumatic Stress Disorder, how can I help you?", Be Certain about your answers do not answer vaguely and do NOT hallucinate, You are suppossed always be helpful to the user and talk kindly`;
       
-      // Get the response
-      const result = await model.generateContent(meraPrompt + "\n\nUser: " + inputValue);
+      let result = null;
+      let lastError = null;
       
-      if (!result.response) {
-        throw new Error('No response from API');
+      // Try different model versions
+      for (const modelName of modelOptions) {
+        try {
+          console.log(`Trying model: ${modelName}`);
+          const model = genAI.getGenerativeModel({ model: modelName });
+          
+          const meraPrompt = `Teacher teaching something in class, prolly chemistry and she is handling a chemistry beaker, then the beakers breaks and the glass breaks, he gets reminded of trauma, He gets teleported to home, where he runs to see what happened where father abusing mother after which mother tells you to run just after that run run run sound effect in distorted voice, then the teacher follows you to console you But you feel like its a monster(father) running behind you, this is my project for an XR hackathon aimed to simulate PTSD, to spread awareness, you are a chat bot available on the website where the above project is deployed, your sole purpose is to help people gain knowledge, awareness, and gain empathy towards people suffering from PTSD, You are a multilingual chat bot, therefore are supposed to detect which language the user prompts to you initially and reply with the same for the conversation, you are supposed to give certain and politically right answers always, Do Not Specify which language are you replying in the conversation, you are supposed to detect the language and reply in the same language, and do NOT reply in multiple languages, after every prompt write a generic ending signature asking the user whether they have any more doubts, you are not supposed to repeat your true intention to every one, just reply with something like "I am here to help you learn more about Post Traumatic Stress Disorder, how can I help you?", Be Certain about your answers do not answer vaguely and do NOT hallucinate, You are suppossed always be helpful to the user and talk kindly`;
+          
+          // Try different API formats
+          try {
+            // Most current format (Gemini 1.5+)
+            result = await model.generateContent({
+              contents: [{ role: 'user', parts: [{ text: `${meraPrompt}\n\nUser: ${userMessage}` }] }],
+              generationConfig: {
+                temperature: 0.7,
+                topK: 40,
+                topP: 0.95,
+                maxOutputTokens: 1024,
+              }
+            });
+            break; // Success, exit the loop
+          } catch (formatError) {
+            console.log('Structured format failed, trying direct format');
+            // Legacy format (Gemini 1.0)
+            result = await model.generateContent(`${meraPrompt}\n\nUser: ${userMessage}`);
+            break; // Success, exit the loop
+          }
+        } catch (modelError) {
+          console.error(`Error with model ${modelName}:`, modelError);
+          lastError = modelError;
+          // Continue to next model option
+        }
       }
       
-      // Get the response text directly - no JSON parsing needed
-      const responseText = await result.response.text();
+      if (!result || !result.response) {
+        throw new Error(lastError ? lastError.message : 'No response from any model version');
+      }
+      
+      const responseText = result.response.text();
       
       setChatHistory([
-        ...appendChatHistory,
+        ...updatedHistory,
         { userID: 'chatBot', textContent: responseText }
       ]);
-  
     } catch (error) {
-      console.error('API Error:', error);
+      console.error('Final API Error:', error);
+      
       setChatHistory([
-        ...appendChatHistory,
+        ...updatedHistory,
         { 
           userID: 'chatBot', 
-          textContent: 'I apologize, but I encountered an error. Please try again in a moment.' 
+          textContent: `I apologize, but I encountered an error. Please try again in a moment. (Error details in console)` 
         }
       ]);
     } finally {
       setLoading(false);
-      setInputValue('');
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !loading) {
+      getResponseForGivenPrompt();
     }
   };
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      {false ? (
+      {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
           className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-4 shadow-lg transition-all duration-300"
@@ -73,12 +126,12 @@ const meraPrompt = `Teacher teaching something in class, prolly chemistry and sh
       ) : (
         <div className="fixed bottom-4 right-2 w-1/2 h-[calc(100vh-10rem)] bg-gray-900 opacity-80 text-white shadow-xl flex flex-col rounded-2xl transition-all duration-300">
           <div className="flex items-center justify-between p-4 border-b border-gray-700">
-            <h2 className="text-xl font-semibold">PTSD mentor</h2>
+            <h2 className="text-xl font-semibold">PTSD Mentor</h2>
             <button
               onClick={() => setIsOpen(false)}
               className="text-gray-500 hover:text-gray-300"
             >
-              {/* <CloseIcon /> */}
+              <CloseIcon />
             </button>
           </div>
           
@@ -87,16 +140,16 @@ const meraPrompt = `Teacher teaching something in class, prolly chemistry and sh
               <div
                 key={index}
                 className={`max-w-[80%] ${
-                  chat.userID === 'chatBot' 
+                  chat.userID === 'user' 
                     ? 'ml-auto bg-blue-700 rounded-l-lg rounded-tr-lg' 
                     : 'bg-gray-800 rounded-r-lg rounded-tl-lg'
                 } p-3`}
               >
-                <p>{chat.textContent}</p>
+                <p className="whitespace-pre-line">{chat.textContent}</p>
               </div>
             ))}
             {loading && (
-              <div className="ml-auto max-w-[80%] bg-blue-700 rounded-l-lg rounded-tr-lg p-3">
+              <div className="bg-gray-800 max-w-[80%] rounded-r-lg rounded-tl-lg p-3">
                 <p>Thinking...</p>
               </div>
             )}
@@ -108,17 +161,19 @@ const meraPrompt = `Teacher teaching something in class, prolly chemistry and sh
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleKeyPress}
                 className="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
                 placeholder="Type your message..."
+                disabled={loading}
               />
               <button
                 onClick={getResponseForGivenPrompt}
-                className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2"
+                className={`bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={loading}
               >
                 <SendIcon />
               </button>
             </div>
-            
           </div>
         </div>
       )}
@@ -173,24 +228,6 @@ const SendIcon = () => (
   >
     <path d="m22 2-7 20-4-9-9-4Z" />
     <path d="M22 2 11 13" />
-  </svg>
-);
-
-const MicIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-    <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-    <line x1="12" x2="12" y1="19" y2="22" />
   </svg>
 );
 
